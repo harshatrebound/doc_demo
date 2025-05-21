@@ -1,0 +1,93 @@
+/* Custom styles to complement Tailwind CSS */
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Testimonial transition */
+.testimonial-slider {
+    transition: all 0.3s ease-in-out;
+}
+
+/* FAQ Accordion Styles */
+.faq-toggle.active i {
+    transform: rotate(180deg);
+}
+
+/* Custom focus states for accessibility */
+button:focus, 
+a:focus {
+    outline: 2px solid #6f42c1;
+    outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom animations for page elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive styles for smaller devices */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Enhance button hover effects */
+.hover-lift {
+    transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-3px);
+}
+
+/* Custom styling for appointment modal */
+#appointmentModal {
+    backdrop-filter: blur(4px);
+}
+
+#appointmentModal .modal-content {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Hero section overlay gradient */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
+}
+
+/* Custom card hover effect */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(111, 66, 193, 0.1);
+}
+

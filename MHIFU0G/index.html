@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Random Clinic Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6f42c1',
+                        secondary: '#f8f9fa',
+                        darkgray: '#343a40'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-darkgray bg-gray-50 h-screen flex flex-col">
+    <!-- Top Navigation -->
+    <header class="bg-white shadow-sm z-50">
+        <div class="px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="mr-4 md:hidden text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <h1 class="text-xl font-bold text-primary hidden md:block">Random Clinic Admin</h1>
+                <h1 class="text-xl font-bold text-primary md:hidden">SOI Admin</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="notifications-button" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">3</span>
+                    </button>
+                </div>
+                
+                <div class="relative">
+                    <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white">
+                            <span class="text-sm font-semibold">AD</span>
+                        </div>
+                        <span class="hidden md:block text-sm font-medium">Admin</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-64 bg-white shadow-md z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 fixed md:relative h-[calc(100vh-3.5rem)] overflow-y-auto">
+            <nav class="py-4">
+                <div class="px-4 mb-6">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." class="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+                        <i class="fas fa-search absolute left-3 top-2.5 text-gray-500"></i>
+                    </div>
+                </div>
+                
+                <ul class="space-y-1 px-2">
+                    <li class="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Main
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link active flex items-center px-3 py-2 text-sm font-medium rounded-lg" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt w-5 h-5 mr-2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg" data-section="appointments">
+                            <i class="fas fa-calendar w-5 h-5 mr-2"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg" data-section="doctors">
+                            <i class="fas fa-user-md w-5 h-5 mr-2"></i>
+                            <span>Doctors</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg" data-section="today">
+                            <i class="fas fa-calendar-day w-5 h-5 mr-2"></i>
+                            <span>Today's Appointments</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg" data-section="calendar">
+                            <i class="fas fa-calendar-alt w-5 h-5 mr-2"></i>
+                            <span>Calendar View</span>
+                        </a>
+                    </li>
+                    
+                    <li class="px-2 pt-5 pb-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Settings
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg">
+                            <i class="fas fa-cog w-5 h-5 mr-2"></i>
+                            <span>General Settings</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg">
+                            <i class="fas fa-user-circle w-5 h-5 mr-2"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/" class="nav-link flex items-center px-3 py-2 text-sm font-medium rounded-lg text-red-600">
+                            <i class="fas fa-sign-out-alt w-5 h-5 mr-2"></i>
+                            <span>Back to Website</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+            <div id="content-area" class="rounded-lg bg-white shadow p-6">
+                <!-- Content will be loaded here via JavaScript -->
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                    <p>Loading content...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick Add Appointment Modal -->
+    <div id="quick-add-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-900">Quick Add Appointment</h3>
+                    <button id="close-quick-add-modal" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <form id="quick-add-form">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="patient-name" class="block text-sm font-medium text-gray-700 mb-1">Patient Name</label>
+                            <input type="text" id="patient-name" name="patient-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30">
+                        </div>
+                        
+                        <div>
+                            <label for="patient-contact" class="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
+                            <input type="tel" id="patient-contact" name="patient-contact" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30">
+                        </div>
+                        
+                        <div>
+                            <label for="appointment-doctor" class="block text-sm font-medium text-gray-700 mb-1">Doctor</label>
+                            <select id="appointment-doctor" name="appointment-doctor" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30">
+                                <option value="">Select a doctor</option>
+                                <option value="1">Dr. Naveen Kumar L.V</option>
+                                <option value="2">Dr. Sameer K.M</option>
+                            </select>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="appointment-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                <input type="date" id="appointment-date" name="appointment-date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30">
+                            </div>
+                            
+                            <div>
+                                <label for="appointment-time" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                                <select id="appointment-time" name="appointment-time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30">
+                                    <option value="">Select time</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="09:30">09:30 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="10:30">10:30 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="11:30">11:30 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="12:30">12:30 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="14:30">02:30 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="15:30">03:30 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="16:30">04:30 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="appointment-type" class="block text-sm font-medium text-gray-700 mb-1">Appointment Type</label>
+                            <select id="appointment-type" name="appointment-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30">
+                                <option value="">Select type</option>
+                                <option value="consultation">Consultation</option>
+                                <option value="follow-up">Follow-up</option>
+                                <option value="procedure">Procedure</option>
+                                <option value="emergency">Emergency</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="appointment-notes" class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                            <textarea id="appointment-notes" name="appointment-notes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end space-x-3">
+                        <button type="button" id="cancel-quick-add" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            Add Appointment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Menu -->
+    <div id="notifications-menu" class="absolute top-12 right-4 mt-2 w-80 bg-white rounded-md shadow-lg z-50 hidden">
+        <div class="p-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold">Notifications</h3>
+        </div>
+        <div class="max-h-80 overflow-y-auto">
+            <div class="p-3 border-b border-gray-100 hover:bg-gray-50">
+                <div class="flex">
+                    <div class="flex-shrink-0 h-8 w-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-3">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">Appointment Canceled</p>
+                        <p class="text-xs text-gray-500">Patient Rahul M. canceled their appointment scheduled for today at 10:30 AM.</p>
+                        <p class="text-xs text-gray-400 mt-1">10 minutes ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 border-b border-gray-100 hover:bg-gray-50">
+                <div class="flex">
+                    <div class="flex-shrink-0 h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-3">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">New Appointment</p>
+                        <p class="text-xs text-gray-500">New appointment booked for Priya S. with Dr. Naveen on Jul 25, 2023.</p>
+                        <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 hover:bg-gray-50">
+                <div class="flex">
+                    <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 mr-3">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">Note from Dr. Sameer</p>
+                        <p class="text-xs text-gray-500">Please update the rehabilitation protocol for knee replacement patients.</p>
+                        <p class="text-xs text-gray-400 mt-1">Yesterday</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 text-center border-t border-gray-200">
+            <a href="#" class="text-sm text-primary hover:text-purple-700 font-medium">View all notifications</a>
+        </div>
+    </div>
+
+    <!-- User Menu -->
+    <div id="user-menu" class="absolute top-12 right-4 mt-2 w-48 bg-white rounded-md shadow-lg z-50 hidden">
+        <div class="py-1">
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Activity Log</a>
+            <div class="border-t border-gray-200"></div>
+            <a href="/" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Sign out</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="appointments.js"></script>
+    <script src="doctors.js"></script>
+    <script src="today.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Clinic - Specialized Care for Athletes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6f42c1',
+                        secondary: '#5a32a3',
+                        light: '#f8f9fa',
+                        dark: '#343a40',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <svg class="h-10 w-10 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 7V17M17 12H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-primary">Random Clinic</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Home</a>
+                    <a href="#services" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Services</a>
+                    <a href="#doctors" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Our Doctors</a>
+                    <a href="#testimonials" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Testimonials</a>
+                    <a href="#contact" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <button id="openBookingBtn" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors">
+                        Book Appointment
+                    </button>
+                    <button class="md:hidden text-gray-600 hover:text-primary" id="mobileMenuBtn">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden pt-4 pb-2">
+                <nav class="flex flex-col space-y-2">
+                    <a href="#home" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Home</a>
+                    <a href="#services" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Services</a>
+                    <a href="#doctors" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Our Doctors</a>
+                    <a href="#testimonials" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Testimonials</a>
+                    <a href="#contact" class="text-gray-800 hover:text-primary transition-colors px-1 py-2">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-16 md:py-24 bg-gradient-to-br from-white to-purple-50">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Specialized Orthopedic Care for Athletes</h1>
+                <p class="text-lg text-gray-600 mb-8">Experience world-class sports medicine and orthopedic care designed to get you back to peak performance safely and quickly.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button id="heroBookingBtn" class="bg-primary hover:bg-secondary text-white px-6 py-3 rounded-md transition-colors font-medium text-lg">
+                        Book an Appointment
+                    </button>
+                    <a href="#services" class="border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-md transition-colors font-medium text-lg text-center">
+                        Our Services
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <div class="rounded-lg overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Sports Medicine" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-primary text-4xl font-bold mb-2">20+</div>
+                    <div class="text-gray-600">Specialized Doctors</div>
+                </div>
+                <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-primary text-4xl font-bold mb-2">5000+</div>
+                    <div class="text-gray-600">Satisfied Patients</div>
+                </div>
+                <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-primary text-4xl font-bold mb-2">15+</div>
+                    <div class="text-gray-600">Years of Experience</div>
+                </div>
+                <div class="text-center p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-primary text-4xl font-bold mb-2">99%</div>
+                    <div class="text-gray-600">Recovery Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Specialized Services</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">We provide comprehensive care for athletes of all levels, from weekend warriors to professionals, with a focus on minimally invasive techniques and personalized rehabilitation.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1594882645126-14020914d58d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1485&q=80" alt="Sports Injury Treatment" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sports Injury Treatment</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive diagnosis and treatment for all types of sports-related injuries, from sprains to complex joint issues.</p>
+                        <a href="#" class="text-primary hover:text-secondary font-medium inline-flex items-center">
+                            Learn More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1579684288361-5c1a2955de0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Joint Reconstruction" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Joint Reconstruction</h3>
+                        <p class="text-gray-600 mb-4">State-of-the-art surgical procedures to restore function to damaged joints using minimally invasive techniques.</p>
+                        <a href="#" class="text-primary hover:text-secondary font-medium inline-flex items-center">
+                            Learn More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Physical Therapy" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sports Physical Therapy</h3>
+                        <p class="text-gray-600 mb-4">Customized rehabilitation programs designed to help athletes regain strength, mobility, and performance.</p>
+                        <a href="#" class="text-primary hover:text-secondary font-medium inline-flex items-center">
+                            Learn More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Meet Our Specialists</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Our team of board-certified orthopedic surgeons and sports medicine specialists are leaders in their field with extensive experience treating athletes at all levels.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8" id="doctorsContainer">
+                <!-- Doctors will be loaded from JavaScript -->
+                <div class="text-center">
+                    <div class="mb-4 rounded-full overflow-hidden h-48 w-48 mx-auto border-4 border-primary shadow-md">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dr. Sarah Johnson" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Dr. Sarah Johnson</h3>
+                    <p class="text-gray-600 mb-2">Orthopedic Surgeon</p>
+                    <div class="flex justify-center space-x-3">
+                        <button class="text-primary doctor-book-btn" data-id="1">Book Appointment</button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="mb-4 rounded-full overflow-hidden h-48 w-48 mx-auto border-4 border-primary shadow-md">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Dr. Michael Chen" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Dr. Michael Chen</h3>
+                    <p class="text-gray-600 mb-2">Sports Medicine Specialist</p>
+                    <div class="flex justify-center space-x-3">
+                        <button class="text-primary doctor-book-btn" data-id="2">Book Appointment</button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="mb-4 rounded-full overflow-hidden h-48 w-48 mx-auto border-4 border-primary shadow-md">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Dr. Emily Rodriguez" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Dr. Emily Rodriguez</h3>
+                    <p class="text-gray-600 mb-2">Joint Reconstruction Expert</p>
+                    <div class="flex justify-center space-x-3">
+                        <button class="text-primary doctor-book-btn" data-id="3">Book Appointment</button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="mb-4 rounded-full overflow-hidden h-48 w-48 mx-auto border-4 border-primary shadow-md">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dr. James Wilson" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Dr. James Wilson</h3>
+                    <p class="text-gray-600 mb-2">Physical Rehabilitation Specialist</p>
+                    <div class="flex justify-center space-x-3">
+                        <button class="text-primary doctor-book-btn" data-id="4">Book Appointment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Patients Say</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Hear from athletes who have returned to their sport after treatment at Random Clinic.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"After tearing my ACL during a soccer match, I was devastated. Dr. Johnson performed my surgery and the physical therapy team designed a perfect recovery plan. Six months later, I'm back on the field stronger than ever."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Patient" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Alex Thompson</h4>
+                            <p class="text-sm text-gray-500">Professional Soccer Player</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"I've struggled with shoulder pain for years from competitive swimming. The team at Random Clinic diagnosed the issue correctly when other clinics couldn't. Their comprehensive treatment approach has me pain-free and improving my times again!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Patient" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Marcus Johnson</h4>
+                            <p class="text-sm text-gray-500">Collegiate Swimmer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"As a marathon runner dealing with chronic knee pain, I was worried my racing days were over. Dr. Rodriguez developed a treatment plan that addressed both the symptoms and the cause. Their approach to sports medicine is truly holistic and effective."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1522&q=80" alt="Patient" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sophia Williams</h4>
+                            <p class="text-sm text-gray-500">Marathon Runner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Contact Us</h2>
+                    <p class="text-gray-600 mb-8">Have questions or want to schedule an appointment? Reach out to our team using the form below or contact us directly.</p>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <div class="bg-gray-50 rounded-lg p-8 h-full">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Visit Our Clinic</h3>
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-map-marker-alt text-primary text-xl w-8"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Address</h4>
+                                    <p class="text-gray-600">123 Sports Medicine Way<br>New Delhi, India 110001</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-phone-alt text-primary text-xl w-8"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Phone</h4>
+                                    <p class="text-gray-600">+91 (11) 2345-6789</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-envelope text-primary text-xl w-8"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Email</h4>
+                                    <p class="text-gray-600">info@sportsorthopedics.in</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-clock text-primary text-xl w-8"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Hours</h4>
+                                    <p class="text-gray-600">Monday - Friday: 8:00 AM - 7:00 PM<br>Saturday: 9:00 AM - 5:00 PM<br>Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <div class="h-64 rounded-lg overflow-hidden shadow-md">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.0123097271526!2d77.22708867547754!3d28.629379675664546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd37b7428501%3A0x1e678d9a001e33ba!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi%20110001!5e0!3m2!1sen!2sin!4v1683042055431!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center">
+                        <svg class="h-10 w-10 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 7V17M17 12H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold">Random Clinic</span>
+                    </div>
+                    <p class="mt-4 text-gray-400">Providing specialized orthopedic care for athletes and active individuals for over 15 years.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#doctors" class="text-gray-400 hover:text-white transition-colors">Our Doctors</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sports Injury Treatment</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Joint Reconstruction</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Physical Rehabilitation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Arthroscopic Surgery</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sports Performance Enhancement</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">Sign up for our newsletter to receive the latest news and updates.</p>
+                    <div class="mt-4 flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary">
+                        <button class="bg-primary hover:bg-secondary px-4 py-2 rounded-r-md transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>&copy; 2023 Random Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-90vh overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900">Book an Appointment</h2>
+                    <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="appointmentForm" class="space-y-4">
+                    <div>
+                        <label for="bookingName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="bookingName" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required>
+                    </div>
+                    <div>
+                        <label for="bookingEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="bookingEmail" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required>
+                    </div>
+                    <div>
+                        <label for="bookingPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" id="bookingPhone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required>
+                    </div>
+                    <div>
+                        <label for="bookingDoctor" class="block text-sm font-medium text-gray-700 mb-1">Select Doctor</label>
+                        <select id="bookingDoctor" name="doctor" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required>
+                            <option value="">Select a doctor</option>
+                            <option value="1">Dr. Sarah Johnson - Orthopedic Surgeon</option>
+                            <option value="2">Dr. Michael Chen - Sports Medicine Specialist</option>
+                            <option value="3">Dr. Emily Rodriguez - Joint Reconstruction Expert</option>
+                            <option value="4">Dr. James Wilson - Physical Rehabilitation Specialist</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="bookingDate" class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                        <input type="date" id="bookingDate" name="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required>
+                    </div>
+                    <div>
+                        <label for="bookingTime" class="block text-sm font-medium text-gray-700 mb-1">Preferred Time</label>
+                        <select id="bookingTime" name="time" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required>
+                            <option value="">Select a time</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="bookingReason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Visit</label>
+                        <textarea id="bookingReason" name="reason" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary" required></textarea>
+                    </div>
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-medium py-3 px-4 rounded-md transition-colors">
+                            Confirm Appointment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div class="text-center">
+                <div class="mb-4 text-primary">
+                    <svg class="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Appointment Requested!</h2>
+                <p class="text-gray-600 mb-6">Your appointment request has been received. We will confirm your appointment shortly via email or phone.</p>
+                <button id="closeConfirmationBtn" class="bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Random Clinic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6f42c1',
+                        secondary: '#5a32a3',
+                        light: '#f8f9fa',
+                        dark: '#343a40',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 shadow-sm h-full flex-shrink-0 transition-all duration-300 ease-in-out">
+            <div class="flex flex-col h-full">
+                <!-- Logo -->
+                <div class="p-6 border-b border-gray-200">
+                    <a href="index.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 7V17M17 12H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-primary">Sports Ortho</span>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="flex-1 overflow-y-auto px-4 py-6">
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group" data-section="dashboard">
+                                <i class="fas fa-tachometer-alt w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                <span class="ml-3">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group" data-section="appointments">
+                                <i class="fas fa-calendar-check w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                <span class="ml-3">Appointments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group" data-section="today-appointments">
+                                <i class="fas fa-calendar-day w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                <span class="ml-3">Today's Appointments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group" data-section="doctors">
+                                <i class="fas fa-user-md w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                <span class="ml-3">Doctors</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group" data-section="calendar">
+                                <i class="fas fa-calendar w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                <span class="ml-3">Calendar View</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="border-t border-gray-200 my-6 pt-6">
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group">
+                                    <i class="fas fa-cog w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                    <span class="ml-3">Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html" class="flex items-center px-4 py-3 text-gray-700 rounded-md hover:bg-gray-100 group">
+                                    <i class="fas fa-sign-out-alt w-5 text-gray-500 group-hover:text-primary transition-colors"></i>
+                                    <span class="ml-3">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- User Profile -->
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Admin User" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">Dr. Admin</p>
+                            <p class="text-xs text-gray-500">Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Header -->
+            <header class="bg-white border-b border-gray-200 shadow-sm">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
+                        <button id="sidebarToggle" class="text-gray-600 hover:text-primary mr-4 focus:outline-none">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                            </svg>
+                        </button>
+                        <h1 id="pageTitle" class="text-xl font-bold text-gray-800">Dashboard</h1>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="quickAddBtn" class="flex items-center mr-4 text-sm px-4 py-2 bg-primary hover:bg-secondary text-white rounded-md transition-colors">
+                            <i class="fas fa-plus mr-2"></i> Quick Add Appointment
+                        </button>
+                        <button class="text-gray-600 hover:text-primary focus:outline-none">
+                            <i class="fas fa-bell text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center">
+                                <div class="bg-blue-100 p-3 rounded-md mr-4">
+                                    <i class="fas fa-calendar-check text-blue-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500 font-medium">Total Appointments</div>
+                                    <div class="text-2xl font-bold text-gray-800" id="totalAppointments">0</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <span class="text-green-500 font-medium"><i class="fas fa-arrow-up"></i> 12%</span> from last month
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 p-3 rounded-md mr-4">
+                                    <i class="fas fa-calendar-day text-green-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500 font-medium">Today's Appointments</div>
+                                    <div class="text-2xl font-bold text-gray-800" id="todayAppointments">0</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <span class="text-green-500 font-medium"><i class="fas fa-arrow-up"></i> 8%</span> from yesterday
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center">
+                                <div class="bg-purple-100 p-3 rounded-md mr-4">
+                                    <i class="fas fa-user-md text-purple-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500 font-medium">Total Doctors</div>
+                                    <div class="text-2xl font-bold text-gray-800" id="totalDoctors">0</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <span class="text-green-500 font-medium"><i class="fas fa-check"></i> Full Staff</span>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center">
+                                <div class="bg-yellow-100 p-3 rounded-md mr-4">
+                                    <i class="fas fa-user-injured text-yellow-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500 font-medium">New Patients</div>
+                                    <div class="text-2xl font-bold text-gray-800">24</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <span class="text-green-500 font-medium"><i class="fas fa-arrow-up"></i> 18%</span> from last week
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2">
+                            <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-lg font-bold text-gray-800">Appointments Overview</h2>
+                                    <select class="text-sm border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary">
+                                        <option>Last 7 Days</option>
+                                        <option>Last 30 Days</option>
+                                        <option>This Month</option>
+                                    </select>
+                                </div>
+                                <div class="h-80 flex items-center justify-center">
+                                    <div id="appointmentsChart" class="w-full h-full">
+                                        <!-- We'd normally use a chart library here -->
+                                        <div class="flex h-64 items-end justify-between px-2">
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 120px;"></div>
+                                                <span class="text-xs mt-2">Mon</span>
+                                            </div>
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 150px;"></div>
+                                                <span class="text-xs mt-2">Tue</span>
+                                            </div>
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 100px;"></div>
+                                                <span class="text-xs mt-2">Wed</span>
+                                            </div>
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 180px;"></div>
+                                                <span class="text-xs mt-2">Thu</span>
+                                            </div>
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 160px;"></div>
+                                                <span class="text-xs mt-2">Fri</span>
+                                            </div>
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 90px;"></div>
+                                                <span class="text-xs mt-2">Sat</span>
+                                            </div>
+                                            <div class="w-1/7 flex flex-col items-center">
+                                                <div class="bg-primary w-full" style="height: 40px;"></div>
+                                                <span class="text-xs mt-2">Sun</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-lg font-bold text-gray-800">Recent Activity</h2>
+                                    <a href="#" class="text-sm text-primary hover:underline">View All</a>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="border-l-4 border-green-500 pl-4 py-2">
+                                        <p class="text-sm text-gray-600">New appointment booked</p>
+                                        <p class="text-xs text-gray-500">10 minutes ago</p>
+                                    </div>
+                                    <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                        <p class="text-sm text-gray-600">Patient file updated</p>
+                                        <p class="text-xs text-gray-500">1 hour ago</p>
+                                    </div>
+                                    <div class="border-l-4 border-yellow-500 pl-4 py-2">
+                                        <p class="text-sm text-gray-600">Appointment rescheduled</p>
+                                        <p class="text-xs text-gray-500">2 hours ago</p>
+                                    </div>
+                                    <div class="border-l-4 border-red-500 pl-4 py-2">
+                                        <p class="text-sm text-gray-600">Appointment cancelled</p>
+                                        <p class="text-xs text-gray-500">3 hours ago</p>
+                                    </div>
+                                    <div class="border-l-4 border-purple-500 pl-4 py-2">
+                                        <p class="text-sm text-gray-600">New doctor added to system</p>
+                                        <p class="text-xs text-gray-500">Yesterday</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Appointments Section -->
+                <section id="appointments-section" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">All Appointments</h2>
+                            <div class="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4 w-full md:w-auto">
+                                 <div class="flex items-center space-x-2 w-full md:w-auto">
+                                    <select id="filterDoctor" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-48 text-sm">
+                                        <option value="">All Doctors</option>
+                                        <!-- Doctor options populated by JS -->
+                                    </select>
+                                     <select id="filterStatus" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-40 text-sm">
+                                        <option value="">All Status</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center space-x-2 w-full md:w-auto">
+                                     <label for="filterStartDate" class="text-sm text-gray-700 whitespace-nowrap">From:</label>
+                                     <input type="date" id="filterStartDate" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-primary focus:border-primary text-sm w-full md:w-auto">
+                                     <label for="filterEndDate" class="text-sm text-gray-700 whitespace-nowrap">To:</label>
+                                     <input type="date" id="filterEndDate" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-primary focus:border-primary text-sm w-full md:w-auto">
+                                </div>
+                                 <div class="relative w-full md:w-64">
+                                    <input type="text" id="appointmentSearch" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary w-full text-sm">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fas fa-search text-gray-400"></i>
+                                    </div>
+                                </div>
+                                <button id="addAppointmentBtn" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors w-full md:w-auto text-sm">
+                                    <i class="fas fa-plus mr-1"></i> Add New
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient Name</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Appt. Date</th>
+                                        <th scope="col" class="px-6 py-3 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Appt. Time</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking Date</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointmentsTableBody" class="bg-white divide-y divide-gray-200">
+                                    <!-- Appointment rows will be loaded by JavaScript -->
+                                    <tr><td colspan="10" class="text-center py-10 text-gray-500">Loading appointments...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-6">
+                            <div class="text-sm text-gray-500">
+                                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium" id="totalAppointmentsCount">0</span> appointments
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    Previous
+                                </button>
+                                <span class="px-3 py-1 border border-primary bg-primary text-white rounded-md">1</span>
+                                <!-- <span class="px-3 py-1 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">2</span>
+                                <span class="px-3 py-1 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">3</span> -->
+                                <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Today's Appointments Section -->
+                <section id="today-appointments-section" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-1">Today's Appointments</h2>
+                                <p class="text-sm text-gray-600" id="todayDate"></p>
+                            </div>
+                            <div class="mt-4 md:mt-0">
+                                <select class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary text-sm" id="filterTodayDoctor">
+                                    <option value="">All Doctors</option>
+                                    <!-- Doctor options populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="todayAppointmentsContainer" class="timeline-container">
+                            <!-- Timeline for today's appointments will be loaded from JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Doctors Section -->
+                <section id="doctors-section" class="content-section hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <h2 class="text-lg font-bold text-gray-800 mb-2">Total Doctors</h2>
+                            <div class="text-3xl font-bold text-primary" id="doctorsCount">0</div>
+                            <p class="text-sm text-gray-600 mt-1">Active healthcare professionals</p>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <h2 class="text-lg font-bold text-gray-800 mb-2">Specializations</h2>
+                            <div class="text-3xl font-bold text-primary">4</div> <!-- This could be dynamic based on unique specializations -->
+                            <p class="text-sm text-gray-600 mt-1">Orthopedic specialties covered</p>
+                        </div>
+                         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                            <h2 class="text-lg font-bold text-gray-800 mb-2">Actions</h2>
+                            <button id="addDoctorBtnPage" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors text-sm">
+                                <i class="fas fa-plus mr-2"></i> Add Doctor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-gray-800">Doctor Directory</h2>
+                            <div class="flex items-center space-x-4">
+                                <button id="sortByName" class="text-gray-600 hover:text-primary text-sm font-medium focus:outline-none">Name <i class="fas fa-sort ml-1"></i></button>
+                                <button id="sortBySpecialization" class="text-gray-600 hover:text-primary text-sm font-medium focus:outline-none">Specialization <i class="fas fa-sort ml-1"></i></button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="doctorsGrid">
+                            <!-- Doctor cards will be loaded from JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calendar Section -->
+                <section id="calendar-section" class="content-section hidden">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-1">Appointment Calendar</h2>
+                                <p class="text-sm text-gray-600" id="currentMonthYear"></p>
+                            </div>
+                            <div class="flex items-center mt-4 md:mt-0">
+                                <button class="text-gray-600 hover:text-primary mr-4" id="prevMonth">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 text-sm" id="todayBtn">
+                                    Today
+                                </button>
+                                <button class="text-gray-600 hover:text-primary ml-4" id="nextMonth">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="calendarContainer" class="calendar-container">
+                            <!-- Calendar will be loaded from JavaScript -->
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add/Edit Appointment Modal -->
+    <div id="appointmentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-90vh overflow-y-auto">
+            <div class="px-6 pt-6 pb-4 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h2 id="appointmentModalTitle" class="text-xl font-bold text-gray-900">Add New Appointment</h2>
+                    <button id="closeAppointmentModalBtn" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <form id="appointmentForm">
+                    <input type="hidden" id="appointmentId" value="">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="patientName" class="block text-sm font-medium text-gray-700 mb-1">Patient Name</label>
+                            <input type="text" id="patientName" name="patientName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                        </div>
+                        <div>
+                            <label for="patientEmail" class="block text-sm font-medium text-gray-700 mb-1">Patient Email</label>
+                            <input type="email" id="patientEmail" name="patientEmail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="patientPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="patientPhone" name="patientPhone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                        </div>
+                        <div>
+                            <label for="appointmentDoctor" class="block text-sm font-medium text-gray-700 mb-1">Doctor</label>
+                            <select id="appointmentDoctor" name="doctor" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                                <option value="">Select a Doctor</option>
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="appointmentDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                            <input type="date" id="appointmentDate" name="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                        </div>
+                        <div>
+                            <label for="appointmentTime" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                            <select id="appointmentTime" name="time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                                <option value="">Select Time</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="09:30">9:30 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="10:30">10:30 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="11:30">11:30 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="12:30">12:30 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="14:30">2:30 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="15:30">3:30 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="16:30">4:30 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="17:30">5:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="appointmentReason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Visit</label>
+                        <textarea id="appointmentReason" name="reason" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="appointmentStatus" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select id="appointmentStatus" name="status" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm">
+                            <option value="confirmed">Confirmed</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+                <button id="cancelAppointmentBtn" class="text-gray-700 hover:text-gray-900 mr-4 text-sm">
+                    Cancel
+                </button>
+                <button id="saveAppointmentBtn" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors text-sm">
+                    Save Appointment
+                </button>
+            </div>
+        </div>
+    </div>
+
+     <!-- Add/Edit Doctor Modal -->
+    <div id="doctorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-90vh overflow-y-auto">
+            <div class="px-6 pt-6 pb-4 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h2 id="doctorModalTitle" class="text-xl font-bold text-gray-900">Add New Doctor</h2>
+                    <button id="closeDoctorModalBtn" class="text-gray-400 hover:text-gray-600">
+                         <i class="fas fa-times w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <form id="doctorForm" class="space-y-4">
+                    <input type="hidden" id="doctorId" value="">
+                    <div>
+                        <label for="doctorName" class="block text-sm font-medium text-gray-700 mb-1">Doctor Name</label>
+                        <input type="text" id="doctorName" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                    </div>
+                    <div>
+                        <label for="doctorSpecialization" class="block text-sm font-medium text-gray-700 mb-1">Specialization</label>
+                        <input type="text" id="doctorSpecialization" name="specialization" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                    </div>
+                     <div>
+                        <label for="doctorContact" class="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
+                        <input type="tel" id="doctorContact" name="contactNumber" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                    </div>
+                     <div>
+                        <label for="doctorEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="doctorEmail" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                    </div>
+                    <div>
+                        <label for="doctorExperience" class="block text-sm font-medium text-gray-700 mb-1">Years of Experience</label>
+                        <input type="number" id="doctorExperience" name="yearsOfExperience" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" min="0" required>
+                    </div>
+                     <div>
+                        <label for="doctorImageUrl" class="block text-sm font-medium text-gray-700 mb-1">Profile Picture URL</label>
+                        <input type="url" id="doctorImageUrl" name="profilePictureUrl" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" required>
+                    </div>
+                     <div>
+                        <label for="doctorAvailableDays" class="block text-sm font-medium text-gray-700 mb-1">Available Days (comma-separated)</label>
+                        <input type="text" id="doctorAvailableDays" name="availableDays" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" placeholder="e.g., Mon, Tue, Fri">
+                    </div>
+                     <div>
+                        <label for="doctorAvailableHours" class="block text-sm font-medium text-gray-700 mb-1">Available Hours</label>
+                        <input type="text" id="doctorAvailableHours" name="availableHours" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm" placeholder="e.g., 9:00 AM - 5:00 PM">
+                    </div>
+                     <div>
+                        <label for="doctorBio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                        <textarea id="doctorBio" name="bio" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm"></textarea>
+                    </div>
+                     <div>
+                        <label for="doctorEducation" class="block text-sm font-medium text-gray-700 mb-1">Education/Qualifications</label>
+                        <textarea id="doctorEducation" name="education" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-sm"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+                <button id="cancelDoctorBtn" class="text-gray-700 hover:text-gray-900 mr-4 text-sm">
+                    Cancel
+                </button>
+                <button id="saveDoctorBtn" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors text-sm">
+                    Save Doctor
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="components/sidebar.js"></script>
+    <script src="components/calendar.js"></script>
+    <script src="components/appointment-list.js"></script>
+    <script src="components/doctor-list.js"></script>
+    <script src="components/appointment-form.js"></script>
+    <script src="components/doctor-form.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
+
