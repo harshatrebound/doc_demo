@@ -135,7 +135,7 @@ function loadDoctorsContent() {
 function generateDoctorData() {
     return [
         {
-            name: 'Dr. Naveen Kumar L.V',
+            name: 'Dr. Aarav Mehra',
             specialty: 'Orthopedic Surgeon, Sports Medicine',
             image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
             todayAppointments: 12,
@@ -147,14 +147,14 @@ function generateDoctorData() {
             workingHours: '9:00 AM - 5:00 PM'
         },
         {
-            name: 'Dr. Sameer K.M',
+            name: 'Dr. Rohan Iyer',
             specialty: 'Shoulder & Knee Specialist',
             image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
             todayAppointments: 8,
             totalPatients: 987,
             experience: 12,
             contact: '+91 8765432109',
-            email: 'sameer@sportsorthopedics.example',
+            email: 'rohan@sportsorthopedics.example',
             status: 'Available',
             workingHours: '10:00 AM - 6:00 PM'
         },

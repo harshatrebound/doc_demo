@@ -40,7 +40,7 @@ function loadAppointmentsContent() {
                         <select class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
                             <option value="">All Doctors</option>
                             <option value="1">Dr. Naveen Kumar</option>
-                            <option value="2">Dr. Sameer K.M</option>
+                            <option value="2">Dr. Rohan Iyer</option>
                             <option value="3">Dr. Anjali Sharma</option>
                             <option value="4">Dr. Rajesh Patel</option>
                         </select>
@@ -175,7 +175,7 @@ function loadAppointmentsContent() {
 function generateAppointmentData() {
     const statuses = ['Confirmed', 'Pending', 'Canceled', 'Completed'];
     const types = ['Consultation', 'Follow-up', 'Procedure', 'Emergency'];
-    const doctors = ['Dr. Naveen Kumar L.V', 'Dr. Sameer K.M', 'Dr. Anjali Sharma', 'Dr. Rajesh Patel'];
+    const doctors = ['Dr. Aarav Mehra', 'Dr. Rohan Iyer', 'Dr. Anjali Sharma', 'Dr. Rajesh Patel'];
     const patients = [
         { name: 'Mohan Kumar', contact: '9876543210' },
         { name: 'Priya Singh', contact: '8765432109' },

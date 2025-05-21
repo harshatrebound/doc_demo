@@ -293,7 +293,7 @@ function loadDashboardContent() {
                                         <span class="text-sm">Today, 11:45 AM</span>
                                     </td>
                                     <td>
-                                        <span class="text-sm">Dr. Sameer K.M</span>
+                                        <span class="text-sm">Dr. Rohan Iyer</span>
                                     </td>
                                     <td class="status-cell">
                                         ${getStatusBadge('Pending')}
@@ -333,7 +333,7 @@ function loadDashboardContent() {
                                         <span class="text-sm">Yesterday, 4:30 PM</span>
                                     </td>
                                     <td>
-                                        <span class="text-sm">Dr. Sameer K.M</span>
+                                        <span class="text-sm">Dr. Rohan Iyer</span>
                                     </td>
                                     <td class="status-cell">
                                         ${getStatusBadge('Canceled')}
@@ -357,7 +357,7 @@ function loadDashboardContent() {
                                 <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dr. Naveen Kumar" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1">
-                                <h4 class="font-medium">Dr. Naveen Kumar L.V</h4>
+                                <h4 class="font-medium">Dr. Aarav Mehra</h4>
                                 <p class="text-xs text-gray-500">Orthopedic Surgeon, Sports Medicine</p>
                                 <div class="mt-2 flex items-center">
                                     <span class="text-xs text-gray-600 mr-3">9:00 AM - 5:00 PM</span>
@@ -373,10 +373,10 @@ function loadDashboardContent() {
                         <!-- Doctor 2 -->
                         <div class="flex items-center p-4 border border-gray-100 rounded-lg hover:bg-gray-50">
                             <div class="w-12 h-12 rounded-full bg-gray-300 overflow-hidden mr-4">
-                                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80" alt="Dr. Sameer K.M" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80" alt="Dr. Rohan Iyer" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1">
-                                <h4 class="font-medium">Dr. Sameer K.M</h4>
+                                <h4 class="font-medium">Dr. Rohan Iyer</h4>
                                 <p class="text-xs text-gray-500">Shoulder & Knee Specialist</p>
                                 <div class="mt-2 flex items-center">
                                     <span class="text-xs text-gray-600 mr-3">10:00 AM - 6:00 PM</span>

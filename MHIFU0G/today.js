@@ -191,7 +191,7 @@ function loadTodayAppointmentsContent() {
                                 <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dr. Naveen Kumar" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="font-medium">Dr. Naveen Kumar L.V</h4>
+                                <h4 class="font-medium">Dr. Aarav Mehra</h4>
                                 <p class="text-xs text-gray-500">9:00 AM - 5:00 PM</p>
                             </div>
                         </div>
@@ -205,10 +205,10 @@ function loadTodayAppointmentsContent() {
                     <div class="border border-gray-200 rounded-lg p-4 hover:border-primary hover:bg-purple-50 transition-colors duration-200">
                         <div class="flex items-center mb-3">
                             <div class="w-10 h-10 rounded-full bg-gray-300 overflow-hidden mr-3">
-                                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80" alt="Dr. Sameer K.M" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80" alt="Dr. Rohan Iyer" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="font-medium">Dr. Sameer K.M</h4>
+                                <h4 class="font-medium">Dr. Rohan Iyer</h4>
                                 <p class="text-xs text-gray-500">10:00 AM - 6:00 PM</p>
                             </div>
                         </div>
@@ -265,7 +265,7 @@ function loadTodayAppointmentsContent() {
 function generateTodayAppointmentData() {
     const statuses = ['Confirmed', 'Pending', 'Canceled', 'Completed'];
     const types = ['Consultation', 'Follow-up', 'Procedure', 'Emergency'];
-    const doctors = ['Dr. Naveen Kumar L.V', 'Dr. Sameer K.M', 'Dr. Anjali Sharma', 'Dr. Rajesh Patel'];
+    const doctors = ['Dr. Aarav Mehra', 'Dr. Rohan Iyer', 'Dr. Anjali Sharma', 'Dr. Rajesh Patel'];
     const patients = [
         { name: 'Mohan Kumar', contact: '9876543210' },
         { name: 'Priya Singh', contact: '8765432109' },

@@ -365,7 +365,7 @@ function generateAppointmentsForDay(count, date) {
     const appointments = [];
     
     const statuses = ['Confirmed', 'Pending', 'Canceled', 'Completed'];
-    const doctors = ['Dr. Naveen', 'Dr. Sameer', 'Dr. Anjali', 'Dr. Rajesh'];
+    const doctors = ['Dr. Aarav', 'Dr. Rohan', 'Dr. Anjali', 'Dr. Rajesh'];
     const patients = [
         'Mohan K.', 'Priya S.', 'Rahul J.', 'Anita M.', 'Vikram S.',
         'Deepa N.', 'Anil V.', 'Sunita P.', 'Ramesh G.', 'Kavita I.'
